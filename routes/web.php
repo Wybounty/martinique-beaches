@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BeachController;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::resource('beaches', BeachController::class);
+Route::get('/', [BeachController::class, 'index']);
