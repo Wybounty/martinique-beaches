@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edition : Plage de Martinique</title>
+    <title>Ajout : Plage de Martinique</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
           crossorigin="anonymous">
@@ -31,7 +31,7 @@
 
     <section class="mx-auto" style="max-width: 900px;">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 mb-0">Modifier une plage</h1>
+            <h1 class="h3 mb-0">Ajouter une plage</h1>
             <a href="{{ url('/') }}" class="btn btn-outline-secondary">Retour</a>
         </div>
 
@@ -45,9 +45,8 @@
             </div>
         @endif
 
-        <form action="{{ route('beaches.update', $beach) }}" method="post">
+        <form action="{{ route('beaches.store') }}" method="post">
             @csrf
-            @method('PUT')
 
             <div class="mb-3">
                 <label for="nom" class="form-label">Nom*</label>
@@ -56,7 +55,7 @@
                     class="form-control @error('nom') is-invalid @enderror"
                     id="nom"
                     name="nom"
-                    value="{{ old('nom', $beach->nom) }}"
+                    value="{{ old('nom') }}"
                     required
                 >
                 @error('nom')
@@ -74,10 +73,7 @@
                 >
                     <option value="">Choisir une commune</option>
                     @foreach ($communes as $commune)
-                        <option
-                            value="{{ $commune->id }}"
-                            @selected(old('commune_id', $beach->commune_id) == $commune->id)
-                        >
+                        <option value="{{ $commune->id }}" @selected(old('commune_id') == $commune->id)>
                             {{ $commune->nom }}
                         </option>
                     @endforeach
@@ -94,14 +90,14 @@
                     id="description"
                     name="description"
                     rows="15"
-                >{{ old('description', $beach->description) }}</textarea>
+                >{{ old('description') }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
             <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
                 <a href="{{ url('/') }}" class="btn btn-outline-secondary">Annuler</a>
             </div>
         </form>
